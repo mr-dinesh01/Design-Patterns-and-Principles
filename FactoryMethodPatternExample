@@ -1,0 +1,51 @@
+interface Document{
+    void type();
+}
+class WordDocument implements Document{
+    public void type() {
+        System.out.println("This is a Word document.");
+    }
+}
+class pdfDocument implements Document{
+    public void type() {
+        System.out.println("This is a PDF document.");
+    }
+}
+class ExcelDocument implements Document{
+    public void type() {
+        System.out.println("This is an Excel document.");
+    }
+}
+abstract class DocumentFactory {
+    abstract Document createDocument();
+}
+class WordDocumentFactory extends DocumentFactory {
+    public Document createDocument() {
+        return new WordDocument();
+    }
+}
+class PdfDocumentFactory extends DocumentFactory {
+    public Document createDocument() {
+        return new pdfDocument();
+    }
+}
+class ExcelDocumentFactory extends DocumentFactory {
+    public Document createDocument() {
+        return new ExcelDocument();
+    }
+}
+public class FactoryMethodPatternExample {
+    public static void main(String[] args) {
+        DocumentFactory wordFactory = new WordDocumentFactory();
+        Document wordDoc = wordFactory.createDocument();
+        wordDoc.type();
+
+        DocumentFactory pdfFactory = new PdfDocumentFactory();
+        Document pdfDoc = pdfFactory.createDocument();
+        pdfDoc.type();
+
+        DocumentFactory excelFactory = new ExcelDocumentFactory();
+        Document excelDoc = excelFactory.createDocument();
+        excelDoc.type();
+    }
+}
