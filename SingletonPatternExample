@@ -1,0 +1,28 @@
+class Logger{
+    private static Logger instance;
+
+    private Logger(){
+        System.out.println("Logger instance created");
+    }
+
+    public static Logger getInstance(){
+        if(instance == null){
+            instance = new Logger();
+        }
+        return instance;
+    }
+}
+
+public class SingletonPatternExample {
+    public static void main(String[] args) {
+        Logger logger1 = Logger.getInstance();
+        Logger logger2 = Logger.getInstance();
+
+        System.out.println(logger1 == logger2);
+    }
+}
+
+PS C:\Users\Dinesh\onedrive\desktop\DN-Practice\java> javac SingletonPatternExample.java
+PS C:\Users\Dinesh\onedrive\desktop\DN-Practice\java> java SingletonPatternExample
+Logger instance created
+true 
