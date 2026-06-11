@@ -1,0 +1,53 @@
+interface PaymentProcessor{
+    void processPayment(double amount);
+}
+
+class PayPalGateway{
+    public void makePayment(double amount){
+        System.out.println("Processing payment of $" + amount + " through PayPal.");
+    }
+}
+
+class GooglePayGateway{
+    public void executePayment(double amount){
+        System.out.println("Processing payment of $" + amount + " through Google Pay.");
+    }
+}
+
+class PayPalAdapter implements PaymentProcessor{
+    private PayPalGateway payPal;
+
+    public PayPalAdapter(PayPalGateway payPal){
+        this.payPal = payPal;
+    }
+
+
+    public void processPayment(double amount) {
+        payPal.makePayment(amount);
+    }
+}
+
+class GooglePayAdapter implements PaymentProcessor{
+    private GooglePayGateway googlePay;
+
+    public GooglePayAdapter(GooglePayGateway googlePay){
+        this.googlePay = googlePay;
+    }
+
+    public void processPayment(double amount) {
+        googlePay.executePayment(amount);
+    }
+}
+
+public class AdapterPatternExample {
+    public static void main(String[] args) {
+        
+        PayPalGateway payPal = new PayPalGateway();
+        PaymentProcessor payPalProcessor = new PayPalAdapter(payPal);
+        payPalProcessor.processPayment(100.0);
+
+        GooglePayGateway googlePay = new GooglePayGateway();
+        PaymentProcessor googlePayProcessor = new GooglePayAdapter(googlePay);
+        googlePayProcessor.processPayment(200.0);
+    }
+}
