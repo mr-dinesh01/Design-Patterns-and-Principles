@@ -1,0 +1,59 @@
+/*Scenario: You are developing a payment system where different payment methods (e.g., Credit Card, PayPal) can be selected at runtime. Use the Strategy Pattern to achieve this.*/
+
+interface PaymentStrategy{
+    void pay(double amount);
+}
+
+class CreditCardPayment implements PaymentStrategy{
+    private String cardNumber;
+
+    public CreditCardPayment(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    @Override
+    public void pay(double amount) {
+        System.out.println("Paid " + amount + " using Credit Card.");
+    }
+}
+
+class PayPalPayment implements PaymentStrategy{
+    private String email;
+
+    public PayPalPayment(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public void pay(double amount) {
+        System.out.println("Paid " + amount + " using PayPal.");
+    }
+}
+
+class PaymentContext{
+    private PaymentStrategy paymentStrategy;
+
+    public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
+        this.paymentStrategy = paymentStrategy;
+    }
+
+    public void executePayment(double amount) {
+        if(paymentStrategy != null){
+            paymentStrategy.pay(amount);
+        } else {
+            System.out.println("No Payment strategy.");
+        }
+    }
+}
+
+public class StrategyPatternExample {
+    public static void main(String[] args) {
+        PaymentContext context = new PaymentContext();
+
+        context.setPaymentStrategy(new CreditCardPayment("1234-5678-9012-3456"));
+        context.executePayment(100.0);
+
+        context.setPaymentStrategy(new PayPalPayment("user@example.com"));
+        context.executePayment(200.0);
+    }
+}
